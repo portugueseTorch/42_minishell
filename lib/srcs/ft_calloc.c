@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/02/24 16:43:13 by gda_cruz         ###   ########.fr       */
+/*   Created: 2022/10/10 23:34:20 by gda-cruz          #+#    #+#             */
+/*   Updated: 2022/10/24 16:13:41 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main()
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	return (0);
+	size_t	total;
+	void	*target;
+
+	total = nmemb * size;
+	target = malloc(total);
+	if (!target)
+		return (NULL);
+	ft_bzero(target, total);
+	return (target);
 }

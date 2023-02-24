@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/02/24 16:43:13 by gda_cruz         ###   ########.fr       */
+/*   Created: 2022/10/10 23:35:05 by gda-cruz          #+#    #+#             */
+/*   Updated: 2022/12/21 00:50:28 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main()
+size_t	ft_strlen(const char *s)
 {
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }

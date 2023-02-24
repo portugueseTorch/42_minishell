@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/02/24 16:43:13 by gda_cruz         ###   ########.fr       */
+/*   Created: 2022/10/10 23:11:39 by gda-cruz          #+#    #+#             */
+/*   Updated: 2022/10/24 16:17:57 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main()
+void	ft_putstr_fd(char *s, int fd)
 {
-	return (0);
+	if (s)
+	{
+		while (*s)
+		{
+			ft_putchar_fd(*s, fd);
+			s++;
+		}
+	}
 }

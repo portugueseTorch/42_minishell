@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/02/24 16:43:13 by gda_cruz         ###   ########.fr       */
+/*   Created: 2022/10/10 23:34:28 by gda-cruz          #+#    #+#             */
+/*   Updated: 2022/10/24 16:14:42 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main()
+int	ft_isascii(int c)
 {
-	return (0);
+	return (c >= 0 && c <= 127);
 }
