@@ -14,3 +14,5 @@ The objective of this project is for you to create a simple shell.
 - https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
 
 - https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+
+- https://medium.com/@mohammedisam2000/lets-build-a-linux-shell-part-i-954c95911501
