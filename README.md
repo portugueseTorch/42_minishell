@@ -16,3 +16,5 @@ The objective of this project is for you to create a simple shell.
 - https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
 
 - https://medium.com/@mohammedisam2000/lets-build-a-linux-shell-part-i-954c95911501
+
+- https://harm-smits.github.io/42docs/projects/minishell
