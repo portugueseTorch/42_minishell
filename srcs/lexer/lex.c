@@ -6,88 +6,119 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:59:37 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/03 15:24:51 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:32:40 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/*	The single purpose of this file is to split the input	
+/*	The single purpose of this file is to split the input
 	into tokens, which can later on be used by the parser
 	to prepare the commands to be ran by the executor		*/
 
 // echo $var1 "large sequence $var2 still going" $var3
 
-int	create_token(char *input, t_token **list, int i, int *status)
+int create_token(char *input, t_token **list, int i, int *status)
 {
-	int	next;
-	int	current_type;
+	int next;
+	int current_type;
 
 	current_type = get_char_type(input[i]);
 	next = get_char_type(input[i + 1]);
 	if (current_type == DOLLAR && next == CHAR)
 		return (create_env_token(input, list, i));
-	else if (current_type == DOUBLE_QUOTE)
+	else if (current_type == DOUBLE_QUOTE && *status == DEFAULT)
 		return (create_dquote_token(input, list, i, status));
-	// else if (current_type == QUOTE)
-	// 	return (parse_quotes(QUOTE));
-	// else if (next == PIPE && next != current_type)
-	// 	return (create_pipe());
-	// else if (is_redirect(input[i]))
-	// 	return (create_redirect());
-	else if (current_type == CHAR)
+	else if (current_type == QUOTE)
+		return (create_quote_token(input, list, i, status));
+	else if (current_type == PIPES)
+		return (create_pipe_token(list));
+	else if (is_redirect(input[i]))
+		return (create_redirect_token(input, list, i));
+	else if (current_type == CHAR || *status == IN_DQ)
 		return (create_standard_token(input, list, i, status));
 	return (NONE);
 }
 
-static void	offset_index(int *i, char *input, t_token **list)
+static void offset_index(int *i, char *input, t_token **list)
 {
-	if (input[*i] == '$')
+	(*i)++;
+	if (input[(*i) - 1] == '$')
 	{
-		while (input[++(*i)])
+		while (input[*i])
+		{
 			if (get_char_type(input[*i]) != CHAR)
-				break ;
+				break;
+			(*i)++;
+		}
 	}
-	else if (input[*i] == '\"')
+	else if (input[(*i) - 1] == '\"')
 	{
-		while (input[++(*i)])
+		while (input[*i])
 		{
 			if (input[*i] == '\\' && input[(*i) + 1] == '\"')
 				(*i) += 2;
 			if (input[*i] == '\"')
-				break ;
+				break;
 			else if (input[(*i) + 1] == '$')
-				break ;
+				break;
+			(*i)++;
 		}
 		(*i)++;
 	}
-	else if (get_char_type(input[*i]) == CHAR)
+	else if (input[(*i) - 1] == '\'')
+	{
+		while (input[*i])
+		{
+			if (input[*i] == '\"')
+				break;
+			(*i)++;
+		}
+		(*i)++;
+	}
+	else if (get_char_type(input[(*i) - 1]) == CHAR)
 	{
 		if (get_last_token(list)->type == IN_DQ)
 		{
-			while (input[++(*i)])
+			while (input[*i])
 			{
 				if (input[*i] == '\\' && input[(*i) + 1] == '\"')
 					(*i) += 2;
 				if (input[*i] == '\"')
-					break ;
+					break;
 				else if (input[(*i) + 1] == '$')
-					break ;
+					break;
+				(*i)++;
 			}
 		}
 		else
-			while (input[++(*i)])
+		{
+			while (input[*i])
+			{
 				if (get_char_type(input[*i]) != CHAR)
-					break ;
+					break;
+				(*i)++;
+			}
+		}
+		(*i)++;
+	}
+	else if (get_char_type(input[(*i) - 1]) == REDIRECTS)
+	{
+		while (input[*i])
+		{
+			if (get_char_type(input[*i]) != REDIRECTS)
+				break;
+			(*i)++;
+		}
 		(*i)++;
 	}
 }
 
-int	parse_input(char *input, t_token **list)
+int parse_input(char *input, t_token **list)
 {
-	int	i;
-	int	check;
-	int	status;
+	int i;
+	int check;
+	int status;
 
 	i = 0;
 	status = DEFAULT;
