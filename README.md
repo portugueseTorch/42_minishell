@@ -12,10 +12,3 @@ The objective of this project is for you to create a simple shell.
 - https://www.codequoi.com/en/errno-and-error-management-in-c/
 
 - https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
-
-- https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
-
-- https://medium.com/@mohammedisam2000/lets-build-a-linux-shell-part-i-954c95911501
-
-- https://harm-smits.github.io/42docs/projects/minishell
-- https://www.youtube.com/watch?v=4m7ubrdbWQU

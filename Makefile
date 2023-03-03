@@ -6,7 +6,7 @@
 #    By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 15:35:05 by gda_cruz          #+#    #+#              #
-#    Updated: 2023/02/24 16:41:17 by gda_cruz         ###   ########.fr        #
+#    Updated: 2023/02/28 14:51:31 by gda_cruz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,43 +22,41 @@ NAME 		=	minishell
 
 LIBFT_DIR		=	lib
 
-SRC			=	srcs/main.c \
+SRC			= 	$(shell find srcs/ -name '*.c')
 
-OBJ			=	$(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
+OBJ			=	$(SRC:.c=.o)
+
 INC_DIR		=	inc
 BUILD_DIR	=	./build
-OBJ_DIR		=	$(BUILD_DIR)/objects
 
 CC			=	gcc
 
-CFLAGS		=	-g -Wall -Wextra -Werror
-LIBFTFLAGS	=	-L$(LIBFT_DIR) -lft
+CFLAGS		=	-g -lreadline -Wall -Wextra -Werror
+LIBFT_FLAGS	=	-L$(LIBFT_DIR) -lft
+
+.o.c:
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $(<:.c=.o)
+	@printf "$(YELLOW)[OK]     "$@"$(RESET)\n"
 
 all: $(NAME)
 
-$(NAME):	$(OBJ)
+$(NAME):	$(BUILD_DIR) $(OBJ)
 	@echo "\n$(BLUE)Compiling libft...$(RESET)"
 	@make -s -C $(LIBFT_DIR)
 	@echo "$(YELLOW)[Libft successfully compiled!]\n$(RESET)"
 	@echo "$(BLUE)Compiling minishell...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFTFLAGS) -o $(NAME)
-	@printf "$(GREEN) ------------------------\n$(RESET)"
-	@printf "$(GREEN_BOLD) [minishell ready to use]\n$(RESET)"
-	@printf "$(GREEN) ------------------------\n$(RESET)"
-
-$(OBJ_DIR)/%.o:	srcs/%.c | $(BUILD_DIR)
-	@$(CC) $(CFLAGS) -c $(^) -o $(@)
-	@printf "$(YELLOW)[OK]     "$@"$(RESET)\n"
-
-.SILENT = $(OBJ)
+	@$(CC) $(OBJ) $(CFLAGS) $(LIBFT_FLAGS) -o $(NAME)
+	@mv $(OBJ) $(BUILD_DIR)
+	@printf "$(GREEN)------------------------\n$(RESET)"
+	@printf "$(GREEN_BOLD)[minishell ready to use]\n$(RESET)"
+	@printf "$(GREEN)------------------------\n$(RESET)"
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
-	@mkdir -p $(OBJ_DIR)
 
 clean:
 	@make clean -s -C $(LIBFT_DIR)
-	@rm -rf $(OBJ_DIR)
+	@rm -rf $(BUILD_DIR)
 
 fclean: clean
 	@make fclean -s -C $(LIBFT_DIR)
