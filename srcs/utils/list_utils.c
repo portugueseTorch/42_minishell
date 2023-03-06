@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:52:46 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/02 18:39:27 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:11:51 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,21 @@ void	add_token(t_token **list, t_token *new)
 	last = get_last_token(list);
 	last->next = new;
 	new->previous = last;
+}
+
+int	get_list_length(t_token **list)
+{
+	int	length;
+	t_token *temp;
+
+	if (!list || !*list)
+		return (0);
+	length = 0;
+	temp = *list;
+	while (temp)
+	{
+		temp = temp->next;
+		length++;
+	}
+	return (length);
 }

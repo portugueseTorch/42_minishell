@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/02 19:18:15 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:33:54 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ void	display_info(t_token **list)
 	}
 }
 
+void	reset_tokens(t_token **list)
+{
+	t_token	*temp;
+	t_token	*clean;
+
+	temp = *list;
+	while (temp)
+	{
+		free(temp->content);
+		temp->type = 0;
+		temp->previous = NULL;
+		clean = temp;
+		temp = temp->next;
+		free(clean);
+	}
+	*list = NULL;
+}
+
 int	init_shell(t_token **token)
 {
 	char	*raw_input;
@@ -40,8 +58,13 @@ int	init_shell(t_token **token)
 		raw_input = readline("\033[1;34mminishell\033[0m$ ");
 		input = ft_strtrim(raw_input, " ");
 		free(raw_input);
-		parse_input(input, token);
+		if (!parse_input(input, token))
+		{
+			printf("Incorrect quotation\n");
+			return (0);
+		}
 		display_info(token);
+		reset_tokens(token);
 	}
 }
 

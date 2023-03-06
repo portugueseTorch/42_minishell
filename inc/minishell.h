@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:14 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/03 17:47:04 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:14:05 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,6 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-typedef struct s_token
-{
-	char			*content;
-	int				type;
-	struct s_token	*next;
-	struct s_token	*previous;
-}	t_token;
-
-enum e_errors
-{
-	SUCCESS,
-	MEMORY_ALLOCATION,
-	INCORRECT_QUOTATION
-};
 
 int		has_whitespace(char *str);
 

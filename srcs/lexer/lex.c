@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:59:37 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/03 18:32:40 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:20:16 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int create_token(char *input, t_token **list, int i, int *status)
 
 static void offset_index(int *i, char *input, t_token **list)
 {
-	(*i)++;
+	if (input[*i] == '\\')
+		(*i) += 2;
+	else
+		(*i)++;
 	if (input[(*i) - 1] == '$')
 	{
 		while (input[*i])
@@ -52,8 +55,10 @@ static void offset_index(int *i, char *input, t_token **list)
 			(*i)++;
 		}
 	}
-	else if (input[(*i) - 1] == '\"')
+	else if (input[(*i) - 1] == '\"' || input[(*i) - 1] == ' ')
 	{
+		if (input[*i] == '$')
+			return ;
 		while (input[*i])
 		{
 			if (input[*i] == '\\' && input[(*i) + 1] == '\"')
@@ -70,7 +75,7 @@ static void offset_index(int *i, char *input, t_token **list)
 	{
 		while (input[*i])
 		{
-			if (input[*i] == '\"')
+			if (input[*i] == '\'')
 				break;
 			(*i)++;
 		}
@@ -114,6 +119,36 @@ static void offset_index(int *i, char *input, t_token **list)
 	}
 }
 
+static int	correctly_quoted(char *input)
+{
+	int	dq;
+	int	q;
+	int	count;
+	int	i;
+
+	i = -1;
+	dq = 0;
+	q = 0;
+	count = 0;
+	while (input[++i])
+	{
+		if (input[i] == '\\')
+			i += 2;
+		if (input[i] == '\'' && !q && !dq)
+			q = 1;
+		else if (input[i] == '\"' && !q && !dq)
+			dq = 1;
+		else if (!dq && q && input[i] == '\'')
+			q = 0;
+		else if (!q && dq && input[i] == '\"')
+			dq = 0;
+		else
+			continue ;
+		count++;
+	}
+	return (count % 2 == 0);
+}
+
 int parse_input(char *input, t_token **list)
 {
 	int i;
@@ -122,13 +157,16 @@ int parse_input(char *input, t_token **list)
 
 	i = 0;
 	status = DEFAULT;
+	if (!correctly_quoted(input))
+		return (0);
 	while (i < (int)ft_strlen(input))
 	{
 		check = create_token(input, list, i, &status);
 		if (check >= 0)
 			offset_index(&i, input, list);
-		while (input[i] == ' ')
-			i++;
+		if (status != IN_DQ)
+			while (input[i] == ' ')
+				i++;
 		// else
 		// 	err_handler();
 	}

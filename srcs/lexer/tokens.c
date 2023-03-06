@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:17:36 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/03 18:28:45 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:26:28 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ int	create_dquote_token(char *input, t_token **list, int i, int *status)
 
 	end = i + 1;
 	initial_status = *status;
-	if (*status == DEFAULT)
-		*status = IN_DQ;
+	if ((*status == IN_DQ && input[i] == '\"'))
+		return (1);
+	*status = IN_DQ;
+	if (input[end] == '$')
+		return (1);
 	while (input[end])
 	{
 		if (input[end] == '\\' && input[end + 1] == '\"')
@@ -55,26 +58,13 @@ int	create_dquote_token(char *input, t_token **list, int i, int *status)
 	}
 	if (initial_status == DEFAULT && *status == DEFAULT)
 		content = ft_substr(input, i, end - i + 1);
-	else if (initial_status == IN_DQ && *status == DEFAULT)
-	{
-		if (input[i] == '\"')
-			return (1);
-		temp = ft_substr(input, i, end - i + 1);
-		content = ft_strtrim(temp, " ");
-		free(temp);
-		temp = ft_strjoin("\"", content);
-		free(content);
-		content = ft_strdup(temp);
-		free(temp);
-	}
-	else if (initial_status == DEFAULT && *status == IN_DQ)
+	else
 	{
 		temp = ft_substr(input, i, end - i + 1);
-		content = ft_strtrim(temp, " ");
-		free(temp);
-		temp = ft_strjoin(content, "\"");
-		free(content);
-		content = ft_strdup(temp);
+		if (initial_status == IN_DQ && *status == DEFAULT)
+			content = ft_strjoin("\"", temp);
+		else if (initial_status == DEFAULT && *status == IN_DQ)
+			content = ft_strjoin(temp, "\"");
 		free(temp);
 	}
 	add_token(list, new_token(content, IN_DQ));
@@ -115,6 +105,8 @@ int	create_standard_token(char *input, t_token **list, int i, int *status)
 	else if (*status == IN_Q)
 		return (create_quote_token(input, list, i, status));
 	end = i + 1;
+	if (input[i] == '\\')
+		end++;
 	while (input[end])
 	{
 		if (input[end] == '\\')
