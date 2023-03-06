@@ -1,41 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/02 13:25:07 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/06 19:31:59 by gda_cruz         ###   ########.fr       */
+/*   Created: 2023/03/06 19:08:51 by gda_cruz          #+#    #+#             */
+/*   Updated: 2023/03/06 19:10:02 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef ENUMS_H
+# define ENUMS_H
 
-typedef struct s_token
+enum e_status
 {
-	char			*content;
-	int				type;
-	struct s_token	*next;
-	struct s_token	*previous;
-}	t_token;
+	DEFAULT,
+	IN_DQ,
+	IN_Q
+};
 
-typedef struct s_cmd
+enum e_token_type
 {
-	int		i;
-	int		pipe_fd[2];
-	pid_t	pid;
-	char	*content;
-	char	*type;
-}	t_cmd;
+	NONE,
+	CMD,
+	ARG,
+	PIPE,
+	REDIR,
+	ENV
+};
 
-typedef struct s_data
+enum e_letter_type
 {
-	int				num_cmd;
-	int				in_file;
-	int				out_file;
-	struct s_cmd	*cmds;
-}	t_data;
+	EMPTY,
+	CHAR,
+	SPC,
+	QUOTE,
+	DOUBLE_QUOTE,
+	REDIRECTS,
+	PIPES,
+	DOLLAR
+};
+
+enum e_errors
+{
+	SUCCESS,
+	MEMORY_ALLOCATION,
+	INCORRECT_QUOTATION
+};
 
 #endif

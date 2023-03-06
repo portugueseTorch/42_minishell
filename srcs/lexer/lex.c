@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:59:37 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/06 16:20:16 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:18:03 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ static int	correctly_quoted(char *input)
 	return (count % 2 == 0);
 }
 
-int parse_input(char *input, t_token **list)
+int lexer(char *input, t_token **list)
 {
 	int i;
 	int check;

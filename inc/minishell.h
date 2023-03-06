@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:14 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/06 17:14:05 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:27:54 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "lexer.h"
 # include "utils.h"
 # include "structs.h"
+# include "enums.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdarg.h>
@@ -47,11 +48,13 @@ t_token	*get_last_token(t_token **list);
 t_token	*new_token(char *content, int type);
 
 int		create_pipe_token(t_token **list);
-int		parse_input(char *input, t_token **token);
+int		lexer(char *input, t_token **token);
 int		create_env_token(char *input, t_token **list, int i);
 int		create_redirect_token(char *input, t_token **list, int i);
 int		create_quote_token(char *input, t_token **list, int i, int *status);
 int		create_dquote_token(char *input, t_token **list, int i, int *status);
 int		create_standard_token(char *input, t_token **list, int i, int *status);
+
+int		parse_input(t_token **list);
 
 #endif
