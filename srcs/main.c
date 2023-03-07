@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/06 19:28:42 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:53:59 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_data	g_data;
-
-void	display_info(t_token **list)
+void	display_lexer(t_token **list)
 {
 	t_token *temp = *list;
 	for (; temp; temp = temp->next)
 	{
-		printf("{ Content: %s\n Type: %d\n", temp->content, temp->type);
+		printf("\n{ Content: %s\n Type: %d\n", temp->content, temp->type);
 		if (temp->previous)
 			printf(" Previous: %s\n", temp->previous->content);
 		else
@@ -65,8 +63,8 @@ int	init_shell(t_token **list)
 			printf("Incorrect quotation\n");
 			return (0);
 		}
-		display_info(list);
 		parse_input(list);
+		// display_info(list);
 		reset_tokens(list);
 	}
 }

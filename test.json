@@ -1,0 +1,57 @@
+{
+	"type": "Script",
+	"commands": [
+	  {
+		"type": "Pipeline",
+		"commands": [
+		  {
+			"type": "Command",
+			"name": {
+			  "text": "echo",
+			  "type": "Word"
+			},
+			"suffix": [
+			  {
+				"text": "\"hi there $PATH my man\"",
+				"expansion": [
+				  {
+					"loc": {
+					  "start": 10,
+					  "end": 14
+					},
+					"parameter": "PATH",
+					"type": "ParameterExpansion"
+				  }
+				],
+				"type": "Word"
+			  }
+			]
+		  },
+		  {
+			"type": "Command",
+			"name": {
+			  "text": "grep",
+			  "type": "Word"
+			},
+			"suffix": [
+			  {
+				"text": "hi",
+				"type": "Word"
+			  },
+			  {
+				"type": "Redirect",
+				"op": {
+				  "text": ">",
+				  "type": "great"
+				},
+				"file": {
+				  "text": "out.txt",
+				  "type": "Word"
+				}
+			  }
+			]
+		  }
+		]
+	  }
+	]
+  }

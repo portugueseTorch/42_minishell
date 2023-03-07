@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:17:36 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/06 15:26:28 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:57:46 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	create_env_token(char *input, t_token **list, int i)
 		end++;
 	}
 	content = ft_substr(input, i, end - i);
-	add_token(list, new_token(content, ENV));
+	add_token(list, new_token(content, 0));
 	return (1);
 }
 
@@ -67,7 +67,7 @@ int	create_dquote_token(char *input, t_token **list, int i, int *status)
 			content = ft_strjoin(temp, "\"");
 		free(temp);
 	}
-	add_token(list, new_token(content, IN_DQ));
+	add_token(list, new_token(content, 1));
 	return (1);
 }
 
@@ -91,7 +91,7 @@ int	create_quote_token(char *input, t_token **list, int i, int *status)
 		end++;
 	}
 	content = ft_substr(input, i, end - i + 1);
-	add_token(list, new_token(content, IN_DQ));
+	add_token(list, new_token(content, 1));
 	return (1);
 }
 
@@ -117,15 +117,15 @@ int	create_standard_token(char *input, t_token **list, int i, int *status)
 	}
 	content = ft_substr(input, i, end - i);
 	if (!has_double_quotes(content))
-		add_token(list, new_token(content, NONE));
+		add_token(list, new_token(content, 0));
 	else
-		add_token(list, new_token(content, IN_DQ));
+		add_token(list, new_token(content, 1));
 	return (1);
 }
 
 int	create_pipe_token(t_token **list)
 {
-	add_token(list, new_token(ft_strdup("|"), PIPE));
+	add_token(list, new_token(ft_strdup("|"), 0));
 	return (1);
 }
 
@@ -142,6 +142,6 @@ int	create_redirect_token(char *input, t_token **list, int i)
 		end++;
 	}
 	content = ft_substr(input, i, end - i);
-	add_token(list, new_token(content, REDIR));
+	add_token(list, new_token(content, 0));
 	return (1);
 }

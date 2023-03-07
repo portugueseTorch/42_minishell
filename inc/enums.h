@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:08:51 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/06 19:10:02 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:09:32 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@ enum e_status
 	IN_Q
 };
 
-enum e_token_type
-{
-	NONE,
-	CMD,
-	ARG,
-	PIPE,
-	REDIR,
-	ENV
-};
-
 enum e_letter_type
 {
 	EMPTY,
@@ -40,6 +30,18 @@ enum e_letter_type
 	REDIRECTS,
 	PIPES,
 	DOLLAR
+};
+
+enum e_token_type
+{
+	WORD,
+	RED,
+	IO,
+	PIPE,
+	ENV,
+	HERE,
+	TERM,
+	BIN
 };
 
 enum e_errors

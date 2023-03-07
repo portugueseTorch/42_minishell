@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:27:44 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/03 17:38:45 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:50:37 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,29 @@ int	is_variable(char *str, int i)
 		if (str[i] == '$')
 			return (1);
 		i--;
+	}
+	return (0);
+}
+
+int	is_redirector(char *str)
+{
+	if (!ft_strncmp(str, "<", 2) || !ft_strncmp(str, ">", 2)
+		|| !ft_strncmp(str, ">>", 3))
+		return (1);
+	return (0);
+}
+
+int	is_builtin(char *str)
+{
+	char *builtins[] = { "echo", "cd", "pwd", "export", "unset", "env", "exit", NULL };
+	int	i;
+
+	i = 0;
+	while (builtins[i])
+	{
+		if (!ft_strncmp(str, builtins[i], ft_strlen(builtins[i])))
+			return (1);
+		i++;
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:59:37 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/06 19:18:03 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:58:27 by gda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int create_token(char *input, t_token **list, int i, int *status)
 		return (create_redirect_token(input, list, i));
 	else if (current_type == CHAR || *status == IN_DQ)
 		return (create_standard_token(input, list, i, status));
-	return (NONE);
+	return (0);
 }
 
 static void offset_index(int *i, char *input, t_token **list)
@@ -83,7 +83,7 @@ static void offset_index(int *i, char *input, t_token **list)
 	}
 	else if (get_char_type(input[(*i) - 1]) == CHAR)
 	{
-		if (get_last_token(list)->type == IN_DQ)
+		if (get_last_token(list)->quotes)
 		{
 			while (input[*i])
 			{

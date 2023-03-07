@@ -12,3 +12,5 @@ The objective of this project is for you to create a simple shell.
 - https://www.codequoi.com/en/errno-and-error-management-in-c/
 
 - https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+
+- https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_03
