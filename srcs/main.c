@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/07 16:53:59 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:24:59 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,7 @@ int	init_shell(t_token **list)
 		raw_input = readline("\033[1;34mminishell\033[0m$ ");
 		input = ft_strtrim(raw_input, " ");
 		free(raw_input);
-		if (!lexer(input, list))
-		{
-			printf("Incorrect quotation\n");
-			return (0);
-		}
-		parse_input(list);
-		// display_info(list);
+		
 		reset_tokens(list);
 	}
 }

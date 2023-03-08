@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:27:44 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/08 10:07:56 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:47:17 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,17 @@ void	remove_quotes(char **content)
 	temp2 = ft_substr(temp1, 1, ft_strlen(temp1) - 2);
 	*content = temp2;
 	free(temp1);
+}
+
+int	has_embedded_quotes(char *input, int i)
+{
+	while (input[i])
+	{
+		if (input[i] == '\\' && input[i + 1] == '\'')
+			i += 2;
+		if (input[i] == '\'')
+			return (1);
+		i++;
+	}
+	return (0);
 }

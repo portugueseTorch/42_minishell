@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:14 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/08 10:08:17 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:47:40 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		has_double_quotes(char *str);
 int		is_variable(char *str, int i);
 int		is_redirector(char *str);
 int		is_builtin(char *str);
+int		has_embedded_quotes(char *input, int i);
 void	remove_quotes(char **content);
 
 /****** list_utils.c ********/
@@ -55,13 +56,13 @@ t_token	*search_list(t_token **list, char *content);
 int		list_has_content(t_token **list, char *content);
 int		get_list_length(t_token **list);
 
-int		create_pipe_token(t_token **list);
 int		lexer(char *input, t_token **token);
-int		create_env_token(char *input, t_token **list, int i);
-int		create_redirect_token(char *input, t_token **list, int i);
-int		create_quote_token(char *input, t_token **list, int i, int *status);
-int		create_dquote_token(char *input, t_token **list, int i, int *status);
-int		create_standard_token(char *input, t_token **list, int i, int *status);
+int		create_pipe_token(t_token **list, int *i);
+int		create_env_token(char *input, t_token **list, int *i);
+int		create_redirect_token(char *input, t_token **list, int *i);
+int		create_quote_token(char *input, t_token **list, int *i, int *status);
+int		create_dquote_token(char *input, t_token **list, int *i, int *status);
+int		create_standard_token(char *input, t_token **list, int *i, int *status);
 
 int		parse_input(t_token **list);
 
