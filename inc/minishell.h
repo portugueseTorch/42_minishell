@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:14 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/07 16:52:13 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:08:17 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		has_double_quotes(char *str);
 int		is_variable(char *str, int i);
 int		is_redirector(char *str);
 int		is_builtin(char *str);
+void	remove_quotes(char **content);
 
 /****** list_utils.c ********/
 void	add_token(t_token **list, t_token *new);

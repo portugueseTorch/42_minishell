@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:27:44 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/07 15:50:37 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:07:56 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,15 @@ int	is_builtin(char *str)
 		i++;
 	}
 	return (0);
+}
+
+void	remove_quotes(char **content)
+{
+	char *temp1;
+	char *temp2;
+
+	temp1 = *content;
+	temp2 = ft_substr(temp1, 1, ft_strlen(temp1) - 2);
+	*content = temp2;
+	free(temp1);
 }

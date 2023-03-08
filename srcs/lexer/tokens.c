@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 18:17:36 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/07 15:57:46 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:24:15 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	create_dquote_token(char *input, t_token **list, int i, int *status)
 			content = ft_strjoin(temp, "\"");
 		free(temp);
 	}
+	if (!has_whitespace(content))
+		remove_quotes(&content);
 	add_token(list, new_token(content, 1));
 	return (1);
 }
@@ -91,6 +93,8 @@ int	create_quote_token(char *input, t_token **list, int i, int *status)
 		end++;
 	}
 	content = ft_substr(input, i, end - i + 1);
+	if (!has_whitespace(content))
+		remove_quotes(&content);
 	add_token(list, new_token(content, 1));
 	return (1);
 }

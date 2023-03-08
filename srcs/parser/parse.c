@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:55:34 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/07 17:02:13 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/08 09:50:07 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,19 @@ static int	count_cmds(t_token **token)
 		count++;
 		temp = temp->next;
 	}
-	printf("Num cmds: %d\n", count);
 	return (count);
 }
 
-void	parse_command(t_token **token, int i)
+int	parse_command(t_token **token, int i)
 {
 	t_token	*temp;
 	int		j;
 
 	temp = *token;
+	j = 0;
 	g_data.cmds[i]->command = malloc(sizeof(char *) * (count_cmds(token) + 1));
+	if (!g_data.cmds[i]->command)
+		return (-1);
 	while (temp)
 	{
 		if (temp && (temp->type != WORD && temp->type != ENV && temp->type != BIN))
@@ -120,6 +122,7 @@ void	parse_command(t_token **token, int i)
 		j++;
 	}
 	g_data.cmds[i]->command[j] = NULL;
+	return (1);
 }
 
 int	populate_cmds(t_token **list)
@@ -134,7 +137,10 @@ int	populate_cmds(t_token **list)
 		while (temp && (temp->type != WORD && temp->type != ENV && temp->type != BIN))
 			temp = temp->next;
 		g_data.cmds[i] = malloc(sizeof(t_cmd));
-		parse_command(&temp, i);
+		if (!g_data.cmds[i])
+			return (-1);
+		if (parse_command(&temp, i) == -1)
+			return (-1);
 		while (temp && (temp->type == WORD || temp->type == ENV || temp->type == BIN))
 			temp = temp->next;
 		i++;
