@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:50:41 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/07 16:09:42 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:51:20 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
 
-
+# define READ	0
+# define WRITE	1
 
 #endif

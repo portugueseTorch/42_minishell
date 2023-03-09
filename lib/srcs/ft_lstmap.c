@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:08:51 by gda-cruz          #+#    #+#             */
-/*   Updated: 2022/10/24 16:16:31 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:09:57 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	new_list = NULL;
 	while (lst)
 	{
-		new_element = ft_lstnew(f(lst->content));
+		new_element = ft_lstnew(f(lst->value));
 		if (!new_element)
 		{
 			ft_lstclear(&new_list, del);

@@ -5,105 +5,43 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/02 13:52:46 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/08 17:24:20 by gda_cruz         ###   ########.fr       */
+/*   Created: 2023/03/09 15:07:43 by gda_cruz          #+#    #+#             */
+/*   Updated: 2023/03/09 15:57:18 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_token	*get_last_token(t_token **list)
+void	modify_value(t_list **list, char *old_value, char *new_value)
 {
-	t_token *temp;
+	t_list	*temp;
 
-	if (!list || !*list)
-		return (NULL);
-	temp = *list;
-	while (temp->next)
-		temp = temp->next;
-	return (temp);
-}
-
-t_token	*new_token(char *content, int quotes)
-{
-	t_token	*new;
-
-	new = (t_token *)malloc(sizeof(t_token));
-	if (!new)
-		return (NULL);
-	new->content = content;
-	new->quotes = quotes;
-	new->type = 0;
-	new->next = NULL;
-	new->previous = NULL;
-	return (new);
-}
-
-void	add_token(t_token **list, t_token *new)
-{
-	t_token	*last;
-
-	if (!list || !new)
-		return ;
 	if (!*list)
-	{
-		*list = new;
 		return ;
-	}
-	last = get_last_token(list);
-	last->next = new;
-	new->previous = last;
-}
-
-int	get_list_length(t_token **list)
-{
-	int	length;
-	t_token *temp;
-
-	if (!list || !*list)
-		return (0);
-	length = 0;
 	temp = *list;
 	while (temp)
 	{
-		temp = temp->next;
-		length++;
-	}
-	return (length);
-}
-
-t_token	*search_list(t_token **list, char *content)
-{
-	t_token *temp;
-
-	if (!list || !*list)
-		return (NULL);
-	temp = *list;
-	while (temp)
-	{
-		if (!ft_strncmp(temp->content, content, ft_strlen(content)))
-			return (temp);
-		temp = temp->next;
-	}
-	return (NULL);
-}
-
-int	list_has_content(t_token **list, char *content)
-{
-	t_token *temp;
-
-	if (!list || !*list)
-		return (-1);
-	temp = *list;
-	while (temp)
-	{
-		if (!ft_strncmp(temp->content, content, ft_strlen(content)))
+		if (!ft_strncmp(temp->value, old_value, ft_strlen(old_value)))
 		{
-			if (temp->next && temp->next->content[0])
-				return (1);
-			else
-				return (-1);
+			free(temp->value);
+			temp->value = new_value;
+			return ;
 		}
+		temp = temp->next;
+	}	
+}
+
+int	list_has_value(char *value, t_list **list)
+{
+	t_list	*temp;
+
+	if (!*list)
+		return (0);
+	temp = *list;
+	while (temp)
+	{
+		if (!ft_strncmp(temp->value, value, ft_strlen(value)))
+			return (1);
 		temp = temp->next;
 	}
 	return (0);

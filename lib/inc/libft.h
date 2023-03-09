@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 22:23:18 by gda-cruz          #+#    #+#             */
-/*   Updated: 2022/12/21 00:48:16 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:09:03 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 ************* MANIPULATION ************/
 typedef struct s_list
 {
-	void			*content;
+	char			*value;
 	struct s_list	*next;
 }				t_list;
 
-t_list	*ft_lstnew(void *content);
+t_list	*ft_lstnew(char *value);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstadd_front(t_list **lst, t_list *new);

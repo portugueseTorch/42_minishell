@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_bool.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 16:03:15 by gda-cruz          #+#    #+#             */
-/*   Updated: 2023/03/09 15:09:49 by gda_cruz         ###   ########.fr       */
+/*   Created: 2023/03/09 10:35:39 by gda_cruz          #+#    #+#             */
+/*   Updated: 2023/03/09 10:37:35 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_BOOL_H
+# define FT_BOOL_H
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
-{
-	if (!lst || !f)
-		return ;
-	while (lst)
-	{
-		f(lst->value);
-		lst = lst->next;
-	}
-}
+typedef int	t_bool;
+
+# define FALSE	0
+# define TRUE	1
+
+#endif

@@ -3,43 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:25:07 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/07 16:53:22 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:58:58 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# include "ft_bool.h"
+
 typedef struct s_token
 {
-	int				quotes;
 	char			*content;
 	int				type;
 	struct s_token	*next;
-	struct s_token	*previous;
 }	t_token;
 
-typedef struct s_cmd
+typedef struct s_built
 {
-	int		i;
-	int		pipe_fd[2];
-	pid_t	pid;
-	char	**command;
-	char	*type;
-}	t_cmd;
+	char			*cmd;
+	int				(*f)(char **str);
+	struct s_built	*next;
+}	t_built;
 
 typedef struct s_data
 {
-	// Executor info
-	char			*in_file;
-	char			*out_file;
-	int				num_cmd;
-	struct s_cmd	**cmds;
-	// Random Info
-	int				exit_status;
+	int		status;
+	int		default_fd[2];
+
+	t_list	**env;
+	t_built	*builtins;
+
+	t_bool	child;
+	t_bool	expanded;
 }	t_data;
 
 #endif

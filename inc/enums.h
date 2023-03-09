@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-cruz <gda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:08:51 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/07 16:09:32 by gda-cruz         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:20:45 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,31 @@
 
 enum e_status
 {
-	DEFAULT,
+	IN_Q,
 	IN_DQ,
-	IN_Q
-};
-
-enum e_letter_type
-{
-	EMPTY,
-	CHAR,
-	SPC,
-	QUOTE,
-	DOUBLE_QUOTE,
-	REDIRECTS,
-	PIPES,
-	DOLLAR
+	IN_ESC,
+	IN_CURLY,
+	DEF
 };
 
 enum e_token_type
 {
-	WORD,
-	RED,
-	IO,
-	PIPE,
-	ENV,
-	HERE,
-	TERM,
-	BIN
+	DEF_CHAR	= -1,
+	SPACE_CHAR	= ' ',
+	USD_CHAR	= '$',
+	QUES_CHAR	= '?',
+	PIPE_CHAR	= '|',
+	QUOTE_CHAR	= '\'',
+	DQUOTE_CHAR	= '\"',
+	INRED_CHAR	= '<',
+	OUTRED_CHAR	= '>',
+	ESC_CHAR	= '\\',
+	OP_CHAR		= '(',
+	CP_CHAR		= ')',
+	OCB_CHAR	= '{',
+	CCB_CHAR	= '}',
+	NULL_CHAR	= '\0',
+	TOKEN		= -1
 };
 
 enum e_errors

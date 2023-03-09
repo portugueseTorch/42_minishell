@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   bi_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 16:03:15 by gda-cruz          #+#    #+#             */
-/*   Updated: 2023/03/09 15:09:49 by gda_cruz         ###   ########.fr       */
+/*   Created: 2023/03/09 15:57:40 by gda_cruz          #+#    #+#             */
+/*   Updated: 2023/03/09 16:07:39 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	add_builtin(t_built **list, char *cmd, int (*f)(char **))
 {
-	if (!lst || !f)
-		return ;
-	while (lst)
+	t_built	*new;
+	t_built	*temp;
+
+	new = (t_built *)malloc(sizeof(t_built));
+	if (!new)
+		exit (EXIT_FAILURE);	// TODO: clear up and make exit codes correct
+	new->cmd = cmd;
+	new->f = f;
+	new->next = NULL;
+	if (!*list)
 	{
-		f(lst->value);
-		lst = lst->next;
+		*list = new;
+		return ;
 	}
+	temp = *list;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
 }

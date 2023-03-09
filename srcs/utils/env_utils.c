@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 16:03:15 by gda-cruz          #+#    #+#             */
-/*   Updated: 2023/03/09 15:09:49 by gda_cruz         ###   ########.fr       */
+/*   Created: 2023/03/09 11:37:13 by gda_cruz          #+#    #+#             */
+/*   Updated: 2023/03/09 16:59:32 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+char	*get_env_value(char *value)
 {
-	if (!lst || !f)
-		return ;
-	while (lst)
+	t_list	*temp;
+
+	if (!*(g_data.env))
+		return ("");
+	temp = *(g_data.env);
+	while (temp)
 	{
-		f(lst->value);
-		lst = lst->next;
+		if (!ft_strncmp(temp->value, value, ft_strlen(value)))
+			return (temp->value + ft_strlen(value));
+		temp = temp->next;
 	}
+	return ("");
 }
