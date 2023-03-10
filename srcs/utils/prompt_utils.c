@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:37:18 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/09 17:07:37 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:39:35 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*get_prompt(void)
 	free(dir);
 	return (prompt);
 }
-
+	
 char	*read_input(void)
 {
 	char	*prompt;
@@ -97,6 +97,9 @@ char	*read_input(void)
 	if (!prompt)
 		prompt = "\033[1;34mminishell\033[0m$ ";
 	line = readline(prompt);
+	free(prompt);
+	prompt = line;
+	line = trim_input(line);
 	free(prompt);
 	return (line);
 }

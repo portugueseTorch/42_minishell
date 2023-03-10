@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:14 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/09 17:01:04 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:13:58 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,23 @@ extern t_data	g_data;
 //////////////////////////////
 /********** INIT ************/
 //////////////////////////////
+
+/****** init.c ****/
 void	init_shell(char **envp);
 
 //////////////////////////////
 /********** LEXER ***********/
 //////////////////////////////
+
+/***** lexer.c ****/
+int		lexer(char *input, t_lexer *lex);
+
+/**** tokens.c ****/
+
+int		init_token(t_token *token, int length);
+
+int		handle_default(t_suplex *suplex);
+void	handle_in_state(t_suplex *t_suplex);
 
 //////////////////////////////
 /********** PARSER **********/
@@ -75,11 +87,18 @@ void	add_builtin(t_built **list, char *cmd, int (*f)(char **));
 /*** env_utils.c **/
 char	*get_env_value(char *value);
 
-/**** prompt.c ****/
+/* prompt_utils.c */
 char	*read_input(void);
 
-/***** utils.c ****/
+/** list_utils.c **/
 int		list_has_value(char *value, t_list **list);
 void	modify_value(t_list **list, char *old_value, char *new_value);
+
+/*** str_utils.c **/
+int		is_whitespace(char c);
+int		input_is_empty(char *input);
+int		get_char_type(char c);
+int		is_terminator(char c);
+char	*trim_input(char *input);
 
 #endif

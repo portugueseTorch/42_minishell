@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/09 17:01:52 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:51:07 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ static void	reset_global(void)
 	g_data.expanded = FALSE;
 }
 
+static void	process_input(char *input)
+{
+	t_lexer	lex;
+
+	if (input_is_empty(input))
+	{
+		free(input);
+		return ;
+	}
+	if (lexer(input, &lex) <= 0)
+	
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
@@ -32,7 +45,15 @@ int	main(int argc, char **argv, char **envp)
 	{
 		reset_global();
 		input = read_input();
-		printf("%s\n", input);
-		free(input);
+		if (!input)
+			exit (EXIT_FAILURE); // TODO: get exit codes correctly and free stuff if needed
+		if (ft_strlen(input) <= 0)
+		{
+			free(input);
+			continue ;
+		}
+		if (!input_is_empty(input))
+			add_history(input); // FIXME: shell line is overlapping command, for some reason
+		process_input(input);
 	}
 }
