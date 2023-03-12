@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:25:07 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/10 17:32:52 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:20:13 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ typedef struct s_lexer
 	int		num_token;
 }	t_lexer;
 
+/*	
+	__suplex_struct__
+	tokens		= list of tokens pointing to the same token as token_list of t_lexer
+	input		= command line being examined
+	length		= strlen of the input
+	state		= flag to signa if default, in quotes, double quotes, or curly brackets
+	type		= token type as per the e_token_type enum
+	i			= iterator for the input
+	j			= iterator for the contents of the tokens
+
+	Support struct for the lexing process
+*/
 typedef struct s_suplex
 {
 	t_token	*tokens;
@@ -49,6 +61,25 @@ typedef struct s_suplex
 	int		i;
 	int		j;
 }	t_suplex;
+
+/*	
+	__suptok_struct__
+	curr		= current token being processed
+	prev		= previous token on the list
+	count		= counter
+	here		= heredoc flag
+	semaphore	= semaphore
+
+	Support struct for the tokenization process
+*/
+typedef struct s_suptok
+{
+	t_token	*curr;
+	t_token	*prev;
+	int		count;
+	int		here;
+	int		semaphore;
+}	t_suptok;
 
 /*	
 	__Builtin_struct__

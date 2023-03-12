@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/09 18:51:07 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:12:46 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ static void	reset_global(void)
 	g_data.expanded = FALSE;
 }
 
+static void	display_info(t_lexer *lex)
+{
+	printf(" ------------------------------- \n");
+	printf("|          Lexer Info           |\n");
+	printf(" ------------------------------- \n");
+
+	for (; lex->token_list; lex->token_list = lex->token_list->next)
+	{
+		printf("Content: %s\nType: %d\n", lex->token_list->content, lex->token_list->type);
+		printf(" ------------------------------- \n");
+	}
+}
+
 static void	process_input(char *input)
 {
 	t_lexer	lex;
@@ -31,7 +44,8 @@ static void	process_input(char *input)
 		return ;
 	}
 	if (lexer(input, &lex) <= 0)
-	
+		return ;
+	display_info(&lex);
 }
 
 int	main(int argc, char **argv, char **envp)

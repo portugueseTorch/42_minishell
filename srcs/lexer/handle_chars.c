@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:53:32 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/10 18:25:20 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:58:11 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	handle_def_term(t_suplex *suplex)
 		if (!suplex->tokens->next)
 			return (0);	// TODO: get exit codes and error messages correct
 		suplex->tokens = suplex->tokens->next;
-		if (init_token(suplex->tokens, suplex->length))
+		if (!init_token(suplex->tokens, suplex->length))
 			return (0);
 	}
 	/* copy the character to the new token */
@@ -67,7 +67,7 @@ static int	handle_def_term(t_suplex *suplex)
 	if (!suplex->tokens->next)
 		return (0);	// TODO: get exit codes and error messages correct
 	suplex->tokens = suplex->tokens->next;
-	if (init_token(suplex->tokens, suplex->length))
+	if (!init_token(suplex->tokens, suplex->length))
 		return (0);
 	return (1);
 }
@@ -82,7 +82,7 @@ static int	handle_def_space(t_suplex *suplex)
 		if (!suplex->tokens->next)
 			return (0);	// TODO: get exit codes and error messages correct
 		suplex->tokens = suplex->tokens->next;
-		if (init_token(suplex->tokens, suplex->length))
+		if (!init_token(suplex->tokens, suplex->length))
 			return (0);
 	}
 	return (1);
@@ -99,8 +99,10 @@ int	handle_default(t_suplex *suplex)
 	else if (suplex->type == ESC_CHAR)
 		handle_def_esc(suplex);
 	else if (is_terminator(suplex->type))
+	{
 		if (!handle_def_term(suplex))
 			return (0);
+	}
 	else if (suplex->type == SPACE_CHAR)
 		if (!handle_def_space(suplex))
 			return (0);
