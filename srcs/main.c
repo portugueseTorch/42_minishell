@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:02 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/12 20:36:38 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:09:30 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!input_is_empty(input))
 			add_history(input); // FIXME: shell line is overlapping command, for some reason
 		process_input(input);
+		free(input);
 	}
 }

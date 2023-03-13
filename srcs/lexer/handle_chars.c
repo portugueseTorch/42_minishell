@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:53:32 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/13 16:33:46 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:31:32 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	handle_def_quotes(t_suplex *suplex)
 		suplex->state = IN_Q;
 	else if (suplex->type == DQUOTE_CHAR)
 		suplex->state = IN_DQ;
-	else if (suplex->type == OCB_CHAR)
-		suplex->state = IN_CURLY;
 	/* Copy the character into the content of the current token */
 	suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
 	suplex->tokens->type = TOKEN;
@@ -41,8 +39,6 @@ static void	handle_def_esc(t_suplex *suplex)
 {
 	suplex->i++;
 	suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
-	printf("HI\n");
-	printf("%c\n", suplex->tokens->content[suplex->j]);
 	suplex->tokens->type = TOKEN;
 	suplex->j++;
 }
@@ -121,15 +117,15 @@ void	handle_in_state(t_suplex *suplex)
 	}
 	else if (suplex->state == IN_DQ)
 	{
-		suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
-		if (suplex->type == DQUOTE_CHAR)
+		if (suplex->input[suplex->i] == '\\')
+		{
+			suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
+			suplex->j++;
+			suplex->i++;
+		}
+		else if (suplex->type == DQUOTE_CHAR)
 			suplex->state = DEF;
-	}
-	else if (suplex->state == IN_CURLY)
-	{
 		suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
-		if (suplex->type == CCB_CHAR)
-			suplex->state = DEF;
 	}
 	suplex->j++;
 }
