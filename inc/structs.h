@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:25:07 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/11 17:20:13 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:14:14 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,15 @@ typedef struct s_suptok
 	int		here;
 	int		semaphore;
 }	t_suptok;
+
+typedef struct s_supexp
+{
+	t_token	*curr;
+	char	*var_name;
+	char	*new_cont;
+	int		start;
+	int		end;
+}	t_supexp;
 
 /*	
 	__Builtin_struct__

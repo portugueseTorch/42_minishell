@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:37:14 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/10 18:13:58 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:15:17 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ int		init_token(t_token *token, int length);
 
 int		handle_default(t_suplex *suplex);
 void	handle_in_state(t_suplex *t_suplex);
+
+int		handle_expand(t_token *token);
+int		process_tokens(t_lexer *lex);
 
 //////////////////////////////
 /********** PARSER **********/

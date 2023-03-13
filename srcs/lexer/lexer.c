@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:59:37 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/11 19:20:04 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:56:23 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,41 @@ static int	process_character(t_suplex *suplex)
 	}
 	else
 		handle_in_state(suplex);
+	if ( suplex->type == NULL_CHAR)
+	{
+		if (suplex->j > 0)
+			suplex->j = 0;
+	}
 	return (1);
+}
+
+static void	display_info(t_lexer *lex)
+{
+	t_lexer	*temp;
+
+	temp = lex;
+	printf(" ------------------------------- \n");
+	printf("|          Lexer Info           |\n");
+	printf(" ------------------------------- \n");
+
+	for (; temp->token_list; temp->token_list = temp->token_list->next)
+	{
+		printf("Content: %s\nType: %d\n", temp->token_list->content, temp->token_list->type);
+		printf(" ------------------------------- \n");
+	}
+
+// 	printf(" ------------------------------- \n");
+// 	printf("|          Suple Info           |\n");
+// 	printf(" ------------------------------- \n");
+// 	printf("Type: %d\nState: %d\nI: %d\nJ: %d\n", sup->type, sup->state, sup->i, sup->j);
+// 	printf(" ------------------------------- \n\n");
 }
 
 int	lexer(char *input, t_lexer *lex)
 {
 	t_suplex	suplex;
 	int			length;
-	// int			num_tokens;
+	int			num_tokens;
 
 	if (!init_lex(lex))
 		return (0);
@@ -67,6 +94,8 @@ int	lexer(char *input, t_lexer *lex)
 			return (0);
 		suplex.i++;
 	}
-	// num_tokens = process_tokens(lex);
+	num_tokens = process_tokens(lex);
+	display_info(lex);
+	(void) num_tokens;
 	return (1);
 }

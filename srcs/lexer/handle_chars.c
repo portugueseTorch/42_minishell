@@ -6,7 +6,7 @@
 /*   By: gda_cruz <gda_cruz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:53:32 by gda_cruz          #+#    #+#             */
-/*   Updated: 2023/03/12 13:58:11 by gda_cruz         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:33:46 by gda_cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	handle_def_esc(t_suplex *suplex)
 {
 	suplex->i++;
 	suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
+	printf("HI\n");
+	printf("%c\n", suplex->tokens->content[suplex->j]);
 	suplex->tokens->type = TOKEN;
 	suplex->j++;
 }
@@ -91,7 +93,7 @@ static int	handle_def_space(t_suplex *suplex)
 /*	Handle with chars outside brackets, quotes, and escape character	*/
 int	handle_default(t_suplex *suplex)
 {
-	if (suplex->type == DEF_CHAR)
+	if (suplex->type == DEF_CHAR || suplex->type == USD_CHAR)
 		handle_def_char(suplex);
 	else if (suplex->type == DQUOTE_CHAR || suplex->type == QUOTE_CHAR || \
 		suplex->type == OCB_CHAR)
@@ -111,9 +113,23 @@ int	handle_default(t_suplex *suplex)
 
 void	handle_in_state(t_suplex *suplex)
 {
-	if (suplex->type == DQUOTE_CHAR || suplex->type == QUOTE_CHAR || \
-		suplex->type == CCB_CHAR)
-		suplex->state = DEF;
-	suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
+	if (suplex->state == IN_Q)
+	{
+		suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
+		if (suplex->type == QUOTE_CHAR)
+			suplex->state = DEF;
+	}
+	else if (suplex->state == IN_DQ)
+	{
+		suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
+		if (suplex->type == DQUOTE_CHAR)
+			suplex->state = DEF;
+	}
+	else if (suplex->state == IN_CURLY)
+	{
+		suplex->tokens->content[suplex->j] = suplex->input[suplex->i];
+		if (suplex->type == CCB_CHAR)
+			suplex->state = DEF;
+	}
 	suplex->j++;
 }
